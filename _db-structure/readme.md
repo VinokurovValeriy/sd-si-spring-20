@@ -3,7 +3,7 @@
 ## Content
 - [Data Base Schema.](#data-base-schema)
 - [Clarification](#clarification)
-- [Required Tables.](#required_tables)
+- [Required Tables.](#required-tables)
 
 ## Data Base Schema.
 

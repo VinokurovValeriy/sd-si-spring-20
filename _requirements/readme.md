@@ -3,7 +3,7 @@
 ## Content
 - [Project Structure](#project-structure)
 - [End-to-End Cases](#end-to-end-cases)
-    - [Case 1: Create Order.](#case-2-create-order)
+    - [Case 1: Create Order.](#case-1-create-order)
     - [Case 2: Show Orders.](#case-2-show-orders)
 
 ## Project Structure
