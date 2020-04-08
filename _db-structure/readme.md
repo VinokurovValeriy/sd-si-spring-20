@@ -58,7 +58,7 @@ It consists of 8 tables.
 | name | type | additional |
 | --- | --- | ---
 | attr_type_def_id | int unsigned | primary key |
-| type | int | - |
+| type | int | not null |
 | object_type_id | int unsigned | foreign key |
 | description | varchar(200) | - |
 

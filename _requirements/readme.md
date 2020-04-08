@@ -18,7 +18,8 @@ com
           │    │    ├── NcObject.java
           │    │    └── NcObjectType.java
           │    └── domain
-          │         └── Oder.java
+          │         └── order
+          │              └── Oder.java
           ├── provisioning
           │    └── operations
           │         ├── CreateOrderOperation.java
