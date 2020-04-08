@@ -123,7 +123,9 @@ It consists of 8 tables.
 | 7 | 6 (List) | - | Order Status Values |
 | 8 | 9 (Reference) | 10 (Phone Number) |  For any Reference to Phone Number OT |
 
-:large_orange_diamond: Date type will store as Text in day-mounth-year format. Example: 8-Apr-2020.
+**Attention!**
+
+'_Date_' type will store as '_Text_' in day-mounth-year format. Example: **08-Apr-2020**.
 
 ### __nc_list_values__
 | list_value_id | value | attr_type_def_id |
@@ -153,8 +155,6 @@ It consists of 8 tables.
 | 7 | Activation Period | 2 (Any Number attribute) |
 | 8 | Product Price | 3 (Any Decimal attribute) |
 | 9 | Order Status | 7 (Order Status Values) |
-
-Attention
 
 <!-- 
 | # | Order Aim | # (Order Aim Values) | 
