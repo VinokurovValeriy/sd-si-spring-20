@@ -18,15 +18,20 @@ com
           │    │    ├── NcObject.java
           │    │    └── NcObjectType.java
           │    └── domain
+          |         ├── enums
+          |         |    └── AttributeType.java
           │         └── order
           │              └── Oder.java
           ├── provisioning
           │    └── operations
           │         ├── CreateOrderOperation.java
           │         └── Operation.java
-          └── services
-               ├── Console.java
-               └── DbWorker.java
+          ├── services
+          │    ├── Console.java
+          │    └── db
+          │         ├── <DataBase>Connection.java
+          │         └── DbWorker.java
+          └── Application.java
 ```
 
 ## End-to-End Cases
