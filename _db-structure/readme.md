@@ -1,5 +1,3 @@
-
-
 - [db-structure](#db-structure)
   - [Data Base Schema.](#data-base-schema)
   - [Table Description.](#table-description)
