@@ -1,22 +1,22 @@
 - [db-structure](#db-structure)
   - [Data Base Schema.](#data-base-schema)
   - [Table Description.](#table-description)
-    - [Table 1. __nc_objects__.](#table-1-ncobjects)
-    - [Table 2. __nc_object_types__.](#table-2-ncobjecttypes)
-    - [Table 3. __nc_attributes__.](#table-3-ncattributes)
-    - [Table 4. __nc_attr_object_types__.](#table-4-ncattrobjecttypes)
-    - [Table 5. __nc_attr_type_defs__.](#table-5-ncattrtypedefs)
-    - [Table 6. __nc_references__.](#table-6-ncreferences)
-    - [Table 7. __nc_params__.](#table-7-ncparams)
-    - [Table 8. __nc_list_values__.](#table-8-nclistvalues)
+    - [Table 1. __nc_objects__.](#table-1-nc_objects)
+    - [Table 2. __nc_object_types__.](#table-2-nc_object_types)
+    - [Table 3. __nc_attributes__.](#table-3-nc_attributes)
+    - [Table 4. __nc_attr_object_types__.](#table-4-nc_attr_object_types)
+    - [Table 5. __nc_attr_type_defs__.](#table-5-nc_attr_type_defs)
+    - [Table 6. __nc_references__.](#table-6-nc_references)
+    - [Table 7. __nc_params__.](#table-7-nc_params)
+    - [Table 8. __nc_list_values__.](#table-8-nc_list_values)
   - [Clarification.](#clarification)
   - [Required Tables.](#required-tables)
-    - [1. __nc_object_types__](#1-ncobjecttypes)
-    - [2. __nc_attr_type_defs__](#2-ncattrtypedefs)
+    - [1. __nc_object_types__](#1-nc_object_types)
+    - [2. __nc_attr_type_defs__](#2-nc_attr_type_defs)
       - [2.1. Assumptions](#21-assumptions)
-    - [3. __nc_list_values__](#3-nclistvalues)
-    - [4. __nc_attributes__](#4-ncattributes)
-    - [__nc_attr_object_types__](#ncattrobjecttypes)
+    - [3. __nc_list_values__](#3-nc_list_values)
+    - [4. __nc_attributes__](#4-nc_attributes)
+    - [5. __nc_attr_object_types__](#5-nc_attr_object_types)
 
 # db-structure
 
@@ -75,8 +75,8 @@ It consists of 8 tables.
 | --- | --- | ---
 | attr_id | int unsigned | not null, foreign key |
 | object_id | int unsigned | not null, foreign key |
-| value | varchar(50) | - |
 | list_value_id | int unsigned | foreign key |
+| value | varchar(50) | - |
 
 ### Table 8. __nc_list_values__.
 | name | type | additional |
@@ -161,7 +161,7 @@ It consists of 8 tables.
 <!-- 
 | # | Order Aim | # (Order Aim Values) | 
 -->
-### __nc_attr_object_types__
+### 5. __nc_attr_object_types__
 | attr_id | object_type_id |
 | --- | --- 
 | 1 (Due Date) | 2 (Abstract Order Object Type) |
