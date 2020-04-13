@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NcObjectTypeService {
     private static final DbWorker dbWorker = DbWorker.getInstance();
@@ -18,19 +18,19 @@ public class NcObjectTypeService {
         this.connection = dbWorker.getConnection();
     }
 
-    public List<NcObjectType> getOrderObjectTypes() {
-        List<NcObjectType> objectTypes = new ArrayList<>();
+    public Map<Integer, NcObjectType> getOrderObjectTypes() {
+        Map<Integer, NcObjectType> objectTypes = new HashMap<>();
 
         try {
-
             PreparedStatement ps = connection.prepareStatement("select * from nc_object_types where parent_id = 2;");
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                objectTypes.add(
-                  new NcObjectType(
-                          resultSet.getInt(1),
-                          resultSet.getString(2),
-                          resultSet.getInt(3)
+                objectTypes.put(
+                        resultSet.getInt(1),
+                        new NcObjectType(
+                                resultSet.getInt(1),
+                                resultSet.getString(2),
+                                resultSet.getInt(3)
                   )
                 );
             }
@@ -40,5 +40,4 @@ public class NcObjectTypeService {
 
         return objectTypes;
     }
-
 }

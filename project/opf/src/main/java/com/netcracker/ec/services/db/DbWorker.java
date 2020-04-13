@@ -1,12 +1,10 @@
 package com.netcracker.ec.services.db;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@Slf4j
 @Getter
 public class DbWorker {
     private Connection connection;
@@ -14,9 +12,10 @@ public class DbWorker {
 
     private DbWorker() {
         try {
-            this.connection = new Connection().getConnection();
+            this.connection = new MySqlConnection().getConnection();
         } catch (Exception e) {
-            log.error.println("SQLException:\n" + e);
+            System.out.println(1);
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -32,7 +31,7 @@ public class DbWorker {
         try {
             connection.close();
         } catch (SQLException e) {
-            log.error.println("SQLException:\n" + e);
+            e.printStackTrace();
         }
     }
 }
