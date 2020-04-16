@@ -1,9 +1,7 @@
 package com.netcracker.ec.provisioning.operations;
 
 import com.netcracker.ec.model.db.NcAttribute;
-import com.netcracker.ec.model.db.NcObject;
 import com.netcracker.ec.model.db.NcObjectType;
-import com.netcracker.ec.model.db.NcParam;
 import com.netcracker.ec.model.domain.order.Order;
 import com.netcracker.ec.services.*;
 
@@ -28,23 +26,22 @@ public class CreateOrderOperation implements Operation {
     public void execute() {
         System.out.println("Please Select Object Type.");
 
-        Map<Integer, NcObjectType> orderObjectTypes = ncObjectTypeService.getOrderObjectTypes();
-        orderObjectTypes.forEach((key, value) -> System.out.println(key + " - " + value.getName()));
+        Map<Integer, NcObjectType> orderObjectTypeMap = ncObjectTypeService.getOrderObjectTypes();
+        orderObjectTypeMap.forEach((key, value) -> System.out.println(key + " - " + value.getName()));
 
         Integer objectTypeId = console.nextOperationId();
-        NcObjectType objectType = orderObjectTypes.get(objectTypeId);
+        NcObjectType selectedObjectType = orderObjectTypeMap.get(objectTypeId);
 
-        List<NcAttribute> attributeList = ncAttributeService.getAttributesByOrderType(objectType);
+        List<NcAttribute> attributeList = ncAttributeService.getAttributesByOrderType(selectedObjectType);
 
-        Order order = new Order(objectType);
-        order.setName(generateOrderName(objectType));
-        attributeList.forEach(attr->order.getAttributes().add(attr));
-
-        List<NcParam> paramList = getParamsList(attributeList, order);
+        Order order = new Order(selectedObjectType);
+        order.setName(generateOrderName(selectedObjectType));
+        attributeList.forEach(attr -> order.getAttributes()
+                .put(attr, console.getAttributeValue(attr)));
 
         if (console.getSaveDialogueAnswer()) {
             addOrder(order);
-            addParams(paramList, order);
+            addOrderParams(order);
         }
     }
 
@@ -52,24 +49,8 @@ public class CreateOrderOperation implements Operation {
         ncObjectService.insertOrder(order);
     }
 
-    private List<NcParam> getParamsList(List<NcAttribute> attributeList, Order order) {
-        List<NcParam> paramList = new ArrayList<>();
-        attributeList.forEach(attr -> paramList
-                .add(
-                    new NcParam(
-                            new NcObject(null, order.getName(), order.getObjectType()),
-                            attr,
-                            console.getAttributeValue(attr))));
-        return paramList;
-    }
-
-    private void addParams(List<NcParam> paramList,Order order) {
-        Integer objectId = ncObjectService.getOrderIdByName(order.getName());
-        paramList.forEach(param->{
-            //use 1 for tests
-            param.getNcObject().setId(1);
-            ncParamsService.insertParam(param);
-        });
+    private void addOrderParams(Order order) {
+        ncParamsService.insertParams(order.getAttributes(), order.getId());
     }
 
     private String generateOrderName(NcObjectType objectType) {

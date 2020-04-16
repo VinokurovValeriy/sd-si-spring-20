@@ -1,7 +1,5 @@
 package com.netcracker.ec.services;
 
-import com.netcracker.ec.model.db.NcObject;
-import com.netcracker.ec.model.db.NcObjectType;
 import com.netcracker.ec.model.domain.order.Order;
 import com.netcracker.ec.services.db.DbWorker;
 
@@ -18,7 +16,6 @@ public class NcObjectService {
         this.connection = dbWorker.getConnection();
     }
 
-
     public int getOrderCountByOrderType(int orderTypeId) {
         int count = 0;
         try {
@@ -33,39 +30,17 @@ public class NcObjectService {
             System.out.println(ps);
 
             ResultSet resultSet = ps.executeQuery();
-            if (resultSet.next()) {
-                count = resultSet.getInt(1);
-            }
+            resultSet.next();
+            count = resultSet.getInt(1);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return count;
     }
 
-    public Integer getOrderIdByName(String name) {
-        Integer objectId = null;
-        try {
-            PreparedStatement ps = connection.prepareStatement(
-                    "select object_id from nc_objects where name = ?;");
+    public Order insertOrder(Order order) {
 
-            ps.setString(1, name);
-
-            //for debug
-            System.out.println(ps);
-
-            ResultSet resultSet = ps.executeQuery();
-            if (resultSet.next()) {
-                objectId = resultSet.getInt("object_id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return objectId;
-    }
-
-    public boolean insertOrder(Order order) {
-        boolean flag = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "insert into nc_objects values(null, ?, ?, null);");
@@ -75,11 +50,31 @@ public class NcObjectService {
             //for debug
             System.out.println(ps);
 
-            //flag = ps.execute();
+            ps.execute();
+            order.setId(getLastId());
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return flag;
+        return order;
+    }
+
+    private Integer getLastId() {
+        Integer id = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "select last_insert_id();");
+
+            //for debug
+            System.out.println(ps);
+
+            ResultSet resultSet = ps.executeQuery();
+            resultSet.next();
+            id = resultSet.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 }

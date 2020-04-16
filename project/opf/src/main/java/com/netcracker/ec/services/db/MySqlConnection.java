@@ -7,7 +7,11 @@ public class MySqlConnection {
     private String url;
 
     public MySqlConnection() {
-        this.url = "jdbc:mysql://localhost/ncHomeTask?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false";
+        this.url = "jdbc:mysql://localhost/ncHomeTask?" +
+                "useUnicode=true&" +
+                "serverTimezone=UTC&" +
+                "useSSL=true&" +
+                "verifyServerCertificate=false";
     }
 
     public Connection getConnection() throws Exception {

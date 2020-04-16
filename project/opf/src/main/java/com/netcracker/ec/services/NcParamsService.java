@@ -1,12 +1,12 @@
 package com.netcracker.ec.services;
 
-import com.netcracker.ec.model.db.NcParam;
-import com.netcracker.ec.model.domain.order.Order;
+import com.netcracker.ec.model.db.NcAttribute;
 import com.netcracker.ec.services.db.DbWorker;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class NcParamsService {
     private static final DbWorker dbWorker = DbWorker.getInstance();
@@ -16,24 +16,26 @@ public class NcParamsService {
         this.connection = dbWorker.getConnection();
     }
 
-    public boolean insertParam(NcParam param) {
-        boolean flag = false;
+    public void insertParams(Map<NcAttribute, String> attributesMap, Integer objectId) {
+        attributesMap.forEach((attr, value) -> insertParam(attr, value, objectId));
+    }
+
+    private void insertParam(NcAttribute attr, String value, Integer objectId) {
 
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "insert into nc_params values(?, ?, null, ?);");
-            ps.setInt(1, param.getNcAttribute().getId());
-            ps.setInt(2, param.getNcObject().getId());
-            ps.setString(3, param.getValue());
+            ps.setInt(1, attr.getId());
+            ps.setInt(2, objectId);
+            ps.setString(3, value);
 
             //for debug
             System.out.println(ps);
 
-            //flag = ps.execute();
+            ps.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return flag;
     }
 }

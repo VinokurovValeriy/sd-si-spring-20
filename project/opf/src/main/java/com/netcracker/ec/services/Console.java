@@ -68,6 +68,7 @@ public class Console {
         System.out.println("Save order?[Y/N]");
         return scanner.next().equals("Y");
     }
+
     public void close() {
         System.out.println("Exit in process...");
         scanner.close();
