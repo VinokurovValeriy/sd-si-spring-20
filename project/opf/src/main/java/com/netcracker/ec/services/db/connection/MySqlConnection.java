@@ -1,4 +1,4 @@
-package com.netcracker.ec.services.db;
+package com.netcracker.ec.services.db.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

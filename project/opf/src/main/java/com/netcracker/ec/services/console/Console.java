@@ -1,7 +1,8 @@
-package com.netcracker.ec.services;
+package com.netcracker.ec.services.console;
 
 import com.netcracker.ec.model.db.NcAttribute;
 import com.netcracker.ec.model.domain.enums.OperationType;
+import com.netcracker.ec.model.domain.order.Order;
 import com.netcracker.ec.provisioning.operations.CreateOrderOperation;
 import com.netcracker.ec.provisioning.operations.ExitOperation;
 import com.netcracker.ec.provisioning.operations.Operation;
@@ -54,6 +55,18 @@ public class Console {
     public void printAvailableOperations() {
         System.out.println("  Operations:");
         Arrays.stream(OperationType.values()).forEach(System.out::println);
+    }
+
+    public void printOrderInfo(Order order) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("Order name: " + order.getName() + "\n");
+        order.getAttributes().forEach((key, value) ->
+                stringBuffer.append("  ")
+                        .append(key.getName())
+                        .append(": ")
+                        .append(value)
+                        .append("\n"));
+        System.out.println(stringBuffer.toString());
     }
 
     public String nextOperationCommand() {

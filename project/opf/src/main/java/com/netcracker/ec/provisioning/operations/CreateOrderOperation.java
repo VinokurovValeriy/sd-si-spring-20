@@ -3,7 +3,11 @@ package com.netcracker.ec.provisioning.operations;
 import com.netcracker.ec.model.db.NcAttribute;
 import com.netcracker.ec.model.db.NcObjectType;
 import com.netcracker.ec.model.domain.order.Order;
-import com.netcracker.ec.services.*;
+import com.netcracker.ec.services.console.Console;
+import com.netcracker.ec.services.db.impl.NcAttributeService;
+import com.netcracker.ec.services.db.impl.NcObjectService;
+import com.netcracker.ec.services.db.impl.NcObjectTypeService;
+import com.netcracker.ec.services.db.impl.NcParamsService;
 
 import java.util.*;
 
@@ -13,7 +17,7 @@ public class CreateOrderOperation implements Operation {
     private final NcObjectService ncObjectService;
     private final NcParamsService ncParamsService;
 
-    private Console console = Console.getInstance();
+    private final Console console = Console.getInstance();
 
     public CreateOrderOperation() {
         this.ncObjectTypeService = new NcObjectTypeService();
@@ -29,7 +33,7 @@ public class CreateOrderOperation implements Operation {
         Map<Integer, NcObjectType> orderObjectTypeMap = ncObjectTypeService.getOrderObjectTypes();
         orderObjectTypeMap.forEach((key, value) -> System.out.println(key + " - " + value.getName()));
 
-        Integer objectTypeId = console.nextOperationId();
+        Integer objectTypeId = getOrderTypeId(orderObjectTypeMap.keySet());
         NcObjectType selectedObjectType = orderObjectTypeMap.get(objectTypeId);
 
         List<NcAttribute> attributeList = ncAttributeService.getAttributesByOrderType(selectedObjectType);
@@ -42,6 +46,7 @@ public class CreateOrderOperation implements Operation {
         if (console.getSaveDialogueAnswer()) {
             addOrder(order);
             addOrderParams(order);
+            console.printOrderInfo(order);
         }
     }
 
@@ -51,6 +56,14 @@ public class CreateOrderOperation implements Operation {
 
     private void addOrderParams(Order order) {
         ncParamsService.insertParams(order.getAttributes(), order.getId());
+    }
+
+    private Integer getOrderTypeId(Set<Integer> objectTypeSet) {
+        Integer id;
+        do {
+            id = console.nextOperationId();
+        } while (!objectTypeSet.contains(id));
+        return id;
     }
 
     private String generateOrderName(NcObjectType objectType) {

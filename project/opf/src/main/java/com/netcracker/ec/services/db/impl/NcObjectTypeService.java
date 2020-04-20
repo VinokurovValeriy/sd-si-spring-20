@@ -1,4 +1,4 @@
-package com.netcracker.ec.services;
+package com.netcracker.ec.services.db.impl;
 
 import com.netcracker.ec.model.db.NcObjectType;
 import com.netcracker.ec.services.db.DbWorker;

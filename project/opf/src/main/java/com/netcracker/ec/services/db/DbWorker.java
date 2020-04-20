@@ -1,5 +1,6 @@
 package com.netcracker.ec.services.db;
 
+import com.netcracker.ec.services.db.connection.MySqlConnection;
 import lombok.Getter;
 
 import java.sql.Connection;

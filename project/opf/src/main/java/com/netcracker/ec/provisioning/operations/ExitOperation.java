@@ -1,7 +1,7 @@
 package com.netcracker.ec.provisioning.operations;
 
 import com.netcracker.ec.Application;
-import com.netcracker.ec.services.Console;
+import com.netcracker.ec.services.console.Console;
 import com.netcracker.ec.services.db.DbWorker;
 
 public class ExitOperation implements Operation {

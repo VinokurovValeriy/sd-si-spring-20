@@ -8,16 +8,16 @@ import java.util.Map;
 
 @AllArgsConstructor
 public enum AttributeType {
-    TEXT("0", "Text"),
-    NUMBER("2", "Number"),
-    DECIMAL("3", "Decimal"),
-    DATE("4", "Date"),
-    LIST("6", "List"),
-    REFERENCE("9", "Reference");
+    TEXT(0, "Text"),
+    NUMBER(2, "Number"),
+    DECIMAL(3, "Decimal"),
+    DATE(4, "Date"),
+    LIST(6, "List"),
+    REFERENCE(9, "Reference");
 
-    private String id;
+    private Integer id;
     private String name;
-    private static Map<String, AttributeType> attributes = new HashMap<>();
+    private static Map<Integer, AttributeType> attributes = new HashMap<>();
 
     static {
         Arrays.stream(AttributeType.values()).forEach(a -> attributes.put(a.id, a));
@@ -28,7 +28,7 @@ public enum AttributeType {
         return id + " - " + name;
     }
 
-    public static AttributeType getOperationById(String id) {
+    public static AttributeType getOperationById(Integer id) {
         return attributes.get(id);
     }
 }

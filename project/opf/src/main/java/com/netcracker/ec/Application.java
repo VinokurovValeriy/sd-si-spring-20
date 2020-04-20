@@ -1,6 +1,6 @@
 package com.netcracker.ec;
 
-import com.netcracker.ec.services.Console;
+import com.netcracker.ec.services.console.Console;
 
 public class Application {
     private static boolean isApplicationRunning = false;
