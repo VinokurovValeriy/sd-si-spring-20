@@ -1,22 +1,22 @@
 - [db-structure](#db-structure)
   - [Data Base Schema.](#data-base-schema)
   - [Table Description.](#table-description)
-    - [Table 1. __nc_objects__.](#table-1-nc_objects)
-    - [Table 2. __nc_object_types__.](#table-2-nc_object_types)
-    - [Table 3. __nc_attributes__.](#table-3-nc_attributes)
-    - [Table 4. __nc_attr_object_types__.](#table-4-nc_attr_object_types)
-    - [Table 5. __nc_attr_type_defs__.](#table-5-nc_attr_type_defs)
-    - [Table 6. __nc_references__.](#table-6-nc_references)
-    - [Table 7. __nc_params__.](#table-7-nc_params)
-    - [Table 8. __nc_list_values__.](#table-8-nc_list_values)
+    - [Table 1. __nc_objects__.](#table-1-ncobjects)
+    - [Table 2. __nc_object_types__.](#table-2-ncobjecttypes)
+    - [Table 3. __nc_attributes__.](#table-3-ncattributes)
+    - [Table 4. __nc_attr_object_types__.](#table-4-ncattrobjecttypes)
+    - [Table 5. __nc_attr_type_defs__.](#table-5-ncattrtypedefs)
+    - [Table 6. __nc_references__.](#table-6-ncreferences)
+    - [Table 7. __nc_params__.](#table-7-ncparams)
+    - [Table 8. __nc_list_values__.](#table-8-nclistvalues)
   - [Clarification.](#clarification)
   - [Required Tables.](#required-tables)
-    - [1. __nc_object_types__](#1-nc_object_types)
-    - [2. __nc_attr_type_defs__](#2-nc_attr_type_defs)
+    - [1. __nc_object_types__](#1-ncobjecttypes)
+    - [2. __nc_attr_type_defs__](#2-ncattrtypedefs)
       - [2.1. Assumptions](#21-assumptions)
-    - [3. __nc_list_values__](#3-nc_list_values)
-    - [4. __nc_attributes__](#4-nc_attributes)
-    - [5. __nc_attr_object_types__](#5-nc_attr_object_types)
+    - [3. __nc_list_values__](#3-nclistvalues)
+    - [4. __nc_attributes__](#4-ncattributes)
+    - [5. __nc_attr_object_types__](#5-ncattrobjecttypes)
 
 # db-structure
 
@@ -123,6 +123,7 @@ It consists of 8 tables.
 | 6 | 6 (List) | - | Service Type Values |
 | 7 | 6 (List) | - | Order Status Values |
 | 8 | 9 (Reference) | 10 (Phone Number) |  For any Reference to Phone Number OT |
+| 9 | 6 (List) | - | Order Aim Values |
 
 #### 2.1. Assumptions
 
@@ -139,11 +140,9 @@ It consists of 8 tables.
 | 6 | Completed | 7 (Order Status Value) |
 | 7 | Cancelled | 7 (Order Status Value) |
 | 8 | Processing | 7 (Order Status Value) |
-<!-- 
-| # | New | # (Order Aim Value) | 
-| # | Disconnect | # (Order Aim Value) | 
-| # | Modify | # (Order Aim Value) | 
--->
+| 9 | New | 9 (Order Aim Value) | 
+| 10 | Modify | 9 (Order Aim Value) | 
+| 11 | Disconnect | 9 (Order Aim Value) | 
 
 ### 4. __nc_attributes__
 | attr_id | name | attr_type_def_id |
@@ -157,10 +156,8 @@ It consists of 8 tables.
 | 7 | Activation Period | 2 (Any Number attribute) |
 | 8 | Product Price | 3 (Any Decimal attribute) |
 | 9 | Order Status | 7 (Order Status Values) |
+| 10 | Order Aim | 9 (Order Aim Values) | 
 
-<!-- 
-| # | Order Aim | # (Order Aim Values) | 
--->
 ### 5. __nc_attr_object_types__
 | attr_id | object_type_id |
 | --- | --- 
