@@ -123,6 +123,7 @@ It consists of 8 tables.
 | 6 | 6 (List) | - | Service Type Values |
 | 7 | 6 (List) | - | Order Status Values |
 | 8 | 9 (Reference) | 10 (Phone Number) |  For any Reference to Phone Number OT |
+| 9 | 6 (List) | - | Order Aim Values |
 
 #### 2.1. Assumptions
 
@@ -139,11 +140,9 @@ It consists of 8 tables.
 | 6 | Completed | 7 (Order Status Value) |
 | 7 | Cancelled | 7 (Order Status Value) |
 | 8 | Processing | 7 (Order Status Value) |
-<!-- 
-| # | New | # (Order Aim Value) | 
-| # | Disconnect | # (Order Aim Value) | 
-| # | Modify | # (Order Aim Value) | 
--->
+| 9 | New | 9 (Order Aim Value) | 
+| 10 | Modify | 9 (Order Aim Value) | 
+| 11 | Disconnect | 9 (Order Aim Value) | 
 
 ### 4. __nc_attributes__
 | attr_id | name | attr_type_def_id |
@@ -157,10 +156,8 @@ It consists of 8 tables.
 | 7 | Activation Period | 2 (Any Number attribute) |
 | 8 | Product Price | 3 (Any Decimal attribute) |
 | 9 | Order Status | 7 (Order Status Values) |
+| 10 | Order Aim | 9 (Order Aim Values) | 
 
-<!-- 
-| # | Order Aim | # (Order Aim Values) | 
--->
 ### 5. __nc_attr_object_types__
 | attr_id | object_type_id |
 | --- | --- 
