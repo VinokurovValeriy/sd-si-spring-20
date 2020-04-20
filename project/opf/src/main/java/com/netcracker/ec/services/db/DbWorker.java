@@ -3,6 +3,8 @@ package com.netcracker.ec.services.db;
 import lombok.Getter;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Getter
@@ -12,7 +14,7 @@ public class DbWorker {
 
     private DbWorker() {
         try {
-            this.connection = new MySqlConnection().getConnection();
+            connection = new MySqlConnection().getConnection();
         } catch (Exception e) {
             System.out.println(1);
             e.printStackTrace();
@@ -25,6 +27,24 @@ public class DbWorker {
             dbWorker = new DbWorker();
         }
         return dbWorker;
+    }
+
+    public void executeInsert(String sqlQuery) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement(sqlQuery);
+
+        //for debug
+        System.out.println(ps);
+
+        ps.execute();
+    }
+
+    public ResultSet executeSelect(String sqlQuery) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement(sqlQuery);
+
+        //for debug
+        System.out.println(ps);
+
+        return ps.executeQuery();
     }
 
     public void close() {

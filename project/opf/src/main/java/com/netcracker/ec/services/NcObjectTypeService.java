@@ -3,8 +3,6 @@ package com.netcracker.ec.services;
 import com.netcracker.ec.model.db.NcObjectType;
 import com.netcracker.ec.services.db.DbWorker;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -12,18 +10,16 @@ import java.util.Map;
 
 public class NcObjectTypeService {
     private static final DbWorker dbWorker = DbWorker.getInstance();
-    private Connection connection;
 
     public NcObjectTypeService() {
-        this.connection = dbWorker.getConnection();
     }
 
     public Map<Integer, NcObjectType> getOrderObjectTypes() {
         Map<Integer, NcObjectType> objectTypes = new HashMap<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from nc_object_types where parent_id = 2;");
-            ResultSet resultSet = ps.executeQuery();
+            String sqlQuery = "select * from nc_object_types where parent_id = 2;";
+            ResultSet resultSet = dbWorker.executeSelect(sqlQuery);
             while (resultSet.next()) {
                 objectTypes.put(
                         resultSet.getInt(1),
@@ -34,6 +30,8 @@ public class NcObjectTypeService {
                   )
                 );
             }
+            resultSet.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
