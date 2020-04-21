@@ -34,7 +34,7 @@ com
           |         ├── enums
           |         |    └── AttributeType.java
           │         └── order
-          │              └── Oder.java
+          │              └── Order.java
           ├── provisioning
           │    └── operations
           │         ├── CreateOrderOperation.java
