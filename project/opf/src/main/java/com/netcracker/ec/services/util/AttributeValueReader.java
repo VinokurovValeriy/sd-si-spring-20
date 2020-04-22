@@ -16,7 +16,7 @@ public class AttributeValueReader {
     public String read(NcAttribute attr) {
         String value = null;
         Integer attrTypeId = attr.getAttributeTypeDef().getType();
-        switch (AttributeType.getOperationById(attrTypeId)) {
+        switch (AttributeType.getAttributeById(attrTypeId)) {
             case TEXT:
                 value = readText();
                 break;
@@ -35,8 +35,8 @@ public class AttributeValueReader {
             case LIST:
                 value = readList();
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
         return value;
     }

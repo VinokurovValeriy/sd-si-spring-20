@@ -1,11 +1,13 @@
 package com.netcracker.ec.model.domain.enums;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 @AllArgsConstructor
 public enum AttributeType {
     TEXT(0, "Text"),
@@ -28,7 +30,7 @@ public enum AttributeType {
         return id + " - " + name;
     }
 
-    public static AttributeType getOperationById(Integer id) {
+    public static AttributeType getAttributeById(Integer id) {
         return attributes.get(id);
     }
 }

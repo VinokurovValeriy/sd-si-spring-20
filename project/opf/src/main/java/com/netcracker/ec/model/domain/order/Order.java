@@ -10,15 +10,15 @@ import java.util.Map;
 
 @Getter
 public class Order extends NcObject {
-    Map<NcAttribute, String> attributes;
+    Map<NcAttribute, String> parameters;
 
     public Order(NcObjectType objectType) {
         super(objectType);
-        this.attributes = new HashMap<>();
+        this.parameters = new HashMap<>();
     }
 
     public Order(Integer id, String name, NcObjectType objectType) {
         super(id, name, objectType);
-        this.attributes = new HashMap<>();
+        this.parameters = new HashMap<>();
     }
 }

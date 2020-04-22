@@ -8,6 +8,7 @@ import com.netcracker.ec.services.db.impl.NcAttributeService;
 import com.netcracker.ec.services.db.impl.NcObjectService;
 import com.netcracker.ec.services.db.impl.NcObjectTypeService;
 import com.netcracker.ec.services.db.impl.NcParamsService;
+import com.netcracker.ec.services.util.IdGenerator;
 
 import java.util.*;
 
@@ -33,20 +34,25 @@ public class CreateOrderOperation implements Operation {
         Map<Integer, NcObjectType> orderObjectTypeMap = ncObjectTypeService.getOrderObjectTypes();
         orderObjectTypeMap.forEach((key, value) -> System.out.println(key + " - " + value.getName()));
 
-        Integer objectTypeId = getOrderTypeId(orderObjectTypeMap.keySet());
+        Integer objectTypeId = console.getOrderTypeId(orderObjectTypeMap.keySet());
         NcObjectType selectedObjectType = orderObjectTypeMap.get(objectTypeId);
 
         List<NcAttribute> attributeList = ncAttributeService.getAttributesByOrderType(selectedObjectType);
 
         Order order = new Order(selectedObjectType);
+        order.setId(IdGenerator
+                .getInstance()
+                .nextId(order));
         order.setName(generateOrderName(selectedObjectType));
-        attributeList.forEach(attr -> order.getAttributes()
+        attributeList.forEach(attr -> order.getParameters()
                 .put(attr, console.getAttributeValue(attr)));
 
         if (console.getSaveDialogueAnswer()) {
             addOrder(order);
             addOrderParams(order);
             console.printOrderInfo(order);
+        } else {
+            IdGenerator.getInstance().resetGeneratedId();
         }
     }
 
@@ -55,15 +61,7 @@ public class CreateOrderOperation implements Operation {
     }
 
     private void addOrderParams(Order order) {
-        ncParamsService.insertParams(order.getAttributes(), order.getId());
-    }
-
-    private Integer getOrderTypeId(Set<Integer> objectTypeSet) {
-        Integer id;
-        do {
-            id = console.nextOperationId();
-        } while (!objectTypeSet.contains(id));
-        return id;
+        ncParamsService.insertParams(order.getParameters(), order.getId());
     }
 
     private String generateOrderName(NcObjectType objectType) {

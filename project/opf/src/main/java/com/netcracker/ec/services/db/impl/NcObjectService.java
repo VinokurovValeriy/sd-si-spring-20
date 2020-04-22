@@ -12,6 +12,21 @@ public class NcObjectService {
     public NcObjectService() {
     }
 
+    public int getOrderCount() {
+        int count = 0;
+        try {
+            String sqlQuery = "select count(*) from nc_objects";
+            ResultSet resultSet = dbWorker.executeSelect(sqlQuery);
+            resultSet.next();
+            count = resultSet.getInt(1);
+            resultSet.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     public int getOrderCountByOrderType(int orderTypeId) {
         int count = 0;
         try {
@@ -39,7 +54,6 @@ public class NcObjectService {
                     order.getName(),
                     order.getObjectType().getId());
             dbWorker.executeInsert(sqlQuery);
-            order.setId(getLastId());
 
         } catch (SQLException e) {
             e.printStackTrace();

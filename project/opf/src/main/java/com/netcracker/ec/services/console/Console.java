@@ -10,6 +10,7 @@ import com.netcracker.ec.provisioning.operations.ShowOrdersOperation;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Console {
     private final Scanner scanner;
@@ -58,15 +59,15 @@ public class Console {
     }
 
     public void printOrderInfo(Order order) {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("Order name: " + order.getName() + "\n");
-        order.getAttributes().forEach((key, value) ->
-                stringBuffer.append("  ")
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Order name: " + order.getName() + "\n");
+        order.getParameters().forEach((key, value) ->
+                stringBuilder.append("  ")
                         .append(key.getName())
                         .append(": ")
                         .append(value)
                         .append("\n"));
-        System.out.println(stringBuffer.toString());
+        System.out.println(stringBuilder.toString());
     }
 
     public String nextOperationCommand() {
@@ -75,6 +76,14 @@ public class Console {
 
     public Integer nextOperationId() {
         return scanner.nextInt();
+    }
+
+    public Integer getOrderTypeId(Set<Integer> objectTypeSet) {
+        Integer id;
+        do {
+            id = console.nextOperationId();
+        } while (!objectTypeSet.contains(id));
+        return id;
     }
 
     public boolean getSaveDialogueAnswer() {
