@@ -1,17 +1,16 @@
 package com.netcracker.ec.services.util;
 
-import com.netcracker.ec.model.db.NcEntity;
-import com.netcracker.ec.model.domain.enums.IdType;
-import com.netcracker.ec.services.db.impl.NcObjectService;
+import com.netcracker.ec.services.db.DbWorker;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class IdGenerator {
     private int id;
-    private String currentClassName;
     private static IdGenerator idGenerator = null;
 
     private IdGenerator(){
-        this.id = 0;
-        this.currentClassName = NcEntity.class.getSimpleName();
+        generateId();
     }
 
     public static IdGenerator getInstance() {
@@ -21,40 +20,22 @@ public class IdGenerator {
         return idGenerator;
     }
 
-    public void resetGeneratedId() {
-        this.id = 0;
-        this.currentClassName = NcEntity.class.getSimpleName();
+    public int nextId() {
+        return id++;
     }
 
-    public int nextId(NcEntity entity) {
-        boolean checkClass = entity.getClass()
-                .getSimpleName()
-                .equals(currentClassName);
+    private void generateId() {
+        id = 1;
+        try {
+            String sqlQuery = "select getNcId();";
 
-        if (checkClass) {
-            return ++id;
-        } else {
-            return generateId(entity);
+            ResultSet resultSet = DbWorker.getInstance().executeSelect(sqlQuery);
+            resultSet.next();
+            id = resultSet.getInt(1);
+            resultSet.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    }
-
-    private int generateId(NcEntity entity) {
-        currentClassName = entity.getClass().getSimpleName();
-        switch (IdType.getTypeByName(currentClassName)) {
-            case OrderId:
-                id = generateOrderId();
-                break;
-            case ObjectTypeId:
-                break;
-            case AttributeId:
-                break;
-            default:
-                break;
-        }
-        return id;
-    }
-
-    private int generateOrderId() {
-        return new NcObjectService().getOrderCount() + 1;
     }
 }

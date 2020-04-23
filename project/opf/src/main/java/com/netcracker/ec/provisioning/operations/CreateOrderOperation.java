@@ -42,7 +42,7 @@ public class CreateOrderOperation implements Operation {
         Order order = new Order(selectedObjectType);
         order.setId(IdGenerator
                 .getInstance()
-                .nextId(order));
+                .nextId());
         order.setName(generateOrderName(selectedObjectType));
         attributeList.forEach(attr -> order.getParameters()
                 .put(attr, console.getAttributeValue(attr)));
@@ -51,8 +51,6 @@ public class CreateOrderOperation implements Operation {
             addOrder(order);
             addOrderParams(order);
             console.printOrderInfo(order);
-        } else {
-            IdGenerator.getInstance().resetGeneratedId();
         }
     }
 

@@ -50,7 +50,8 @@ public class NcObjectService {
     public Order insertOrder(Order order) {
 
         try {
-            String sqlQuery = String.format("insert into nc_objects values(null, '%s', %d, null);",
+            String sqlQuery = String.format("insert into nc_objects values(%d, '%s', %d, null);",
+                    order.getId(),
                     order.getName(),
                     order.getObjectType().getId());
             dbWorker.executeInsert(sqlQuery);
