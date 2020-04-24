@@ -9,6 +9,7 @@
     - [Modify Order](#modify-order)
     - [Show statistics](#show-statistics)
   - [Assumptions](#assumptions)
+    - [Id Generator](#id-generator)
     - [Technical Attributes](#technical-attributes)
     - [Order Name Generated](#order-name-generated)
   - [End-to-End Cases](#end-to-end-cases)
@@ -110,6 +111,30 @@ com
 - атрибут ‘Order Status’.
 
 ## Assumptions
+
+### Id Generator
+
+Create table **nc_id**, that will be store unique *Id* value. Then create function, that will be return *Id* (and increase value) from **nc_id**.
+
+```
+create table nc_id (id int(8));    <-- create table
+insert into nc_id set id = 1;      <-- insert initial Id value
+
+delimiter $$                       <-- change delimiter from ; to $$
+
+create function getNcId()          <-- create function with name getNcId and w/o input values
+returns int                        <-- function return int value
+begin                              <-- function body
+declare res int(8);                <-- declare variable as res with int type
+update nc_id set id = id + 1;      <-- function have to increase Id value in nc_id table
+select id into res from nc_id;     <-- set Id to declareted above variable
+return res;                        <-- return declareted above variable
+end$$                              <-- end function body
+
+delimiter ;                        <-- change delimiter from $$ to ;
+
+select getId();
+```
 
 ### Technical Attributes
 
