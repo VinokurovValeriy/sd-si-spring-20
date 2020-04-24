@@ -40,9 +40,7 @@ public class CreateOrderOperation implements Operation {
         List<NcAttribute> attributeList = ncAttributeService.getAttributesByOrderType(selectedObjectType);
 
         Order order = new Order(selectedObjectType);
-        order.setId(IdGenerator
-                .getInstance()
-                .nextId());
+        order.setId(IdGenerator.generateId());
         order.setName(generateOrderName(selectedObjectType));
         attributeList.forEach(attr -> order.getParameters()
                 .put(attr, console.getAttributeValue(attr)));

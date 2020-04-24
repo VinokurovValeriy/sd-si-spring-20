@@ -6,26 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class IdGenerator {
-    private int id;
-    private static IdGenerator idGenerator = null;
 
-    private IdGenerator(){
-        generateId();
-    }
-
-    public static IdGenerator getInstance() {
-        if (idGenerator == null) {
-            idGenerator = new IdGenerator();
-        }
-        return idGenerator;
-    }
-
-    public int nextId() {
-        return id++;
-    }
-
-    private void generateId() {
-        id = 1;
+    public static int generateId() {
+        int id = 1;
         try {
             String sqlQuery = "select getNcId();";
 
@@ -37,5 +20,6 @@ public class IdGenerator {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return id;
     }
 }
