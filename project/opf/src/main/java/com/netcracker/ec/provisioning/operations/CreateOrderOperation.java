@@ -10,6 +10,7 @@ import com.netcracker.ec.services.db.impl.NcObjectTypeService;
 import com.netcracker.ec.services.db.impl.NcParamsService;
 import com.netcracker.ec.services.util.IdGenerator;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class CreateOrderOperation implements Operation {
@@ -39,16 +40,20 @@ public class CreateOrderOperation implements Operation {
 
         List<NcAttribute> attributeList = ncAttributeService.getAttributesByOrderType(selectedObjectType);
 
-        Order order = new Order(selectedObjectType);
-        order.setId(IdGenerator.generateId());
-        order.setName(generateOrderName(selectedObjectType));
-        attributeList.forEach(attr -> order.getParameters()
-                .put(attr, console.getAttributeValue(attr)));
+        try {
+            Order order = new Order(selectedObjectType);
+            order.setId(IdGenerator.generateId());
+            order.setName(generateOrderName(selectedObjectType));
+            attributeList.forEach(attr -> order.getParameters()
+                    .put(attr, console.getAttributeValue(attr)));
 
-        if (console.getSaveDialogueAnswer()) {
-            addOrder(order);
-            addOrderParams(order);
-            console.printOrderInfo(order);
+            if (console.getSaveDialogueAnswer()) {
+                addOrder(order);
+                addOrderParams(order);
+                console.printOrderInfo(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
