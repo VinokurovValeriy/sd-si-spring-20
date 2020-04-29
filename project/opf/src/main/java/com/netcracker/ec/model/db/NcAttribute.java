@@ -1,4 +1,14 @@
-package com.netcracker.ec.model.db;
+ package com.netcracker.ec.model.db;
 
-public class NcAttribute {
+public class NcAttribute extends NcEntity {
+    private NcAttributeTypeDef attributeTypeDef;
+
+    public NcAttribute(NcAttributeTypeDef attributeTypeDef) {
+        this.attributeTypeDef = attributeTypeDef;
+    }
+
+    public NcAttribute(Integer id, String name, NcAttributeTypeDef attributeTypeDef) {
+        super(id, name);
+        this.attributeTypeDef = attributeTypeDef;
+    }
 }

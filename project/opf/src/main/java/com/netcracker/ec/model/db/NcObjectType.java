@@ -15,6 +15,4 @@ public class NcObjectType extends NcEntity {
         super(id, name);
         this.parentId = parentId;
     }
-
-
 }
